@@ -54,6 +54,14 @@ public class BootstrapData implements CommandLineRunner {
 		book4.setTitle("Almoço de Domingo");
 		bookService.save(book4);
 		
+		Book book5 = new Book();
+		book5.setTitle("War and Peace");
+		bookService.save(book5);
+		
+		Book book6 = new Book();
+		book6.setTitle("Crime and Punishment");
+		bookService.save(book6);
+		
 		System.out.println("Saved books.");
 	}
 	

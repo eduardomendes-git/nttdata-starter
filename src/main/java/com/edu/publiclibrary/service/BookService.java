@@ -3,6 +3,8 @@
  */
 package com.edu.publiclibrary.service;
 
+import java.util.Set;
+
 import com.edu.publiclibrary.domain.Book;
 
 /**
@@ -12,4 +14,5 @@ import com.edu.publiclibrary.domain.Book;
  */
 public interface BookService extends CrudService<Book, Long> {
 
+	public Set<Book> findAllAvailable();
 }

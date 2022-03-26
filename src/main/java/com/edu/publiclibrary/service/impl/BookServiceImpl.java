@@ -33,6 +33,16 @@ public class BookServiceImpl implements BookService {
 		bookRepository.findAll().forEach(books::add);
 		return books;
 	}
+	
+	public Set<Book> findAllAvailable() {
+		Set<Book> books = new HashSet<Book>();
+		bookRepository.findAll().forEach(book -> {
+													if (book.getReader() == null) {
+														books.add(book);
+													}
+												});
+		return books;
+	}
 
 	@Override
 	public Book findById(Long id) {
