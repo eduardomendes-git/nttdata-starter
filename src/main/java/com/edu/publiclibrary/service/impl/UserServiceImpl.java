@@ -1,0 +1,58 @@
+/**
+ * 
+ */
+package com.edu.publiclibrary.service.impl;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import org.springframework.stereotype.Service;
+
+import com.edu.publiclibrary.domain.User;
+import com.edu.publiclibrary.repository.UserRepository;
+import com.edu.publiclibrary.service.UserService;
+
+/**
+ * @author	eduardomendes
+ * @date	26 Mar 2022
+ *
+ */
+@Service
+public class UserServiceImpl implements UserService {
+
+	private final UserRepository userRepository;
+	
+	public UserServiceImpl(UserRepository userRepository) {
+		super();
+		this.userRepository = userRepository;
+	}
+
+	@Override
+	public Set<User> findAll() {
+		
+		Set<User> users = new HashSet<User>();
+		userRepository.findAll().forEach(users::add);
+		return users;
+	}
+
+	@Override
+	public User findById(Long id) {
+		return userRepository.findById(id).orElse(null);
+	}
+
+	@Override
+	public User save(User user) {
+		return userRepository.save(user);
+	}
+
+	@Override
+	public void delete(User user) {
+		userRepository.delete(user);
+	}
+
+	@Override
+	public void deleteById(Long id) {
+		userRepository.deleteById(id);
+	}
+
+}
