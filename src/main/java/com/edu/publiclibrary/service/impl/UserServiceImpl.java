@@ -8,7 +8,6 @@ import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
-import com.edu.publiclibrary.domain.Book;
 import com.edu.publiclibrary.domain.User;
 import com.edu.publiclibrary.repository.UserRepository;
 import com.edu.publiclibrary.service.UserService;
