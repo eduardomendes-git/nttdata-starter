@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.edu.publiclibrary.domain.Book;
+import com.edu.publiclibrary.domain.User;
 import com.edu.publiclibrary.service.BookService;
 
 /**
@@ -47,5 +48,24 @@ public class BookController {
 	public @ResponseBody Book getBookById(@PathVariable Long bookId) {
 		
 		return bookService.findById(bookId);
+	}
+
+	@GetMapping("borrow/{bookId}")
+	public @ResponseBody Book borrowBook(@PathVariable Long bookId) {
+		
+		Book book = bookService.findAllAvailable()
+							.stream()
+							.filter(b -> b.getId() == bookId)
+							.findFirst().orElse(null);
+		
+		if (book == null) {
+			throw new RuntimeException("The book with id '" + bookId + "' is not available");
+		}
+		
+		User user = new User();
+		user.setUsername("userA");
+		user.setId(1L);
+		
+		return bookService.borrowBook(book, user);
 	}
 }

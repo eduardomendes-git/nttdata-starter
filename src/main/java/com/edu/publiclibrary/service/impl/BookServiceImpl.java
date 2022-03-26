@@ -9,6 +9,7 @@ import java.util.Set;
 import org.springframework.stereotype.Service;
 
 import com.edu.publiclibrary.domain.Book;
+import com.edu.publiclibrary.domain.User;
 import com.edu.publiclibrary.repository.BookRepository;
 import com.edu.publiclibrary.service.BookService;
 
@@ -25,6 +26,14 @@ public class BookServiceImpl implements BookService {
 	public BookServiceImpl(BookRepository bookRepository) {
 		super();
 		this.bookRepository = bookRepository;
+	}
+	
+	@Override
+	public Book borrowBook(Book book, User user) {
+		
+		book.setReader(user);
+		
+		return bookRepository.save(book);
 	}
 
 	@Override

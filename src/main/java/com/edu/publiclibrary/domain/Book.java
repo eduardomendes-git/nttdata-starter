@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author	eduardomendes
  * @date	26 Mar 2022
@@ -27,6 +29,7 @@ public class Book extends BaseEntity implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "reader_id")
+	@JsonIgnore
 	private User reader;
 	
 	public String getTitle() {
