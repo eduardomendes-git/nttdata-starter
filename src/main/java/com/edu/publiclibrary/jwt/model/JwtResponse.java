@@ -17,13 +17,13 @@ public class JwtResponse implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private final String jwttoken;
+	private final String jwtToken;
 
-	public JwtResponse(String jwttoken) {
-		this.jwttoken = jwttoken;
+	public JwtResponse(String jwtToken) {
+		this.jwtToken = jwtToken;
 	}
 
 	public String getToken() {
-		return this.jwttoken;
+		return this.jwtToken;
 	}
 }

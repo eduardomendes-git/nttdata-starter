@@ -12,4 +12,7 @@ import com.edu.publiclibrary.domain.User;
  */
 public interface UserService extends CrudService<User, Long> {
 	
+	public String getUsernameFromToken(String jwtToken);
+	
+	public User findByUsername(String username);
 }

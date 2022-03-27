@@ -9,6 +9,7 @@ import java.util.Set;
 import org.springframework.stereotype.Service;
 
 import com.edu.publiclibrary.domain.User;
+import com.edu.publiclibrary.jwt.config.JwtUtil;
 import com.edu.publiclibrary.repository.UserRepository;
 import com.edu.publiclibrary.service.UserService;
 
@@ -22,9 +23,24 @@ public class UserServiceImpl implements UserService {
 
 	private final UserRepository userRepository;
 	
-	public UserServiceImpl(UserRepository userRepository) {
+	private final JwtUtil jwtUtil;
+	
+	public UserServiceImpl(UserRepository userRepository, JwtUtil jwtUtil) {
 		super();
 		this.userRepository = userRepository;
+		this.jwtUtil = jwtUtil;
+	}
+	
+	@Override
+	public String getUsernameFromToken(String jwtToken) {
+
+		return jwtUtil.getUsernameFromToken(jwtToken);
+	}
+	
+	@Override
+	public User findByUsername(String username) {
+
+		return userRepository.findByUsername(username);
 	}
 
 	@Override

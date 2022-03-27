@@ -7,13 +7,16 @@ import java.util.Set;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.edu.publiclibrary.domain.Book;
 import com.edu.publiclibrary.domain.User;
+import com.edu.publiclibrary.jwt.config.JwtUtil;
 import com.edu.publiclibrary.service.BookService;
+import com.edu.publiclibrary.service.UserService;
 
 /**
  * @author	eduardomendes
@@ -27,10 +30,18 @@ public class BookController {
 	public static final String API_BASE_URL = "public-library/api/v1/books/";
 	
 	private final BookService bookService;
+	
+	private final UserService  userService;
+	
+	private final JwtUtil jwtUtil;
 
-	public BookController(BookService bookService) {
+	public BookController(BookService bookService, 
+						  UserService  userService,
+						  JwtUtil jwtUtil) {
 		super();
 		this.bookService = bookService;
+		this.userService = userService;
+		this.jwtUtil = jwtUtil;
 	}
 	
 	@GetMapping
@@ -51,8 +62,9 @@ public class BookController {
 	}
 
 	@GetMapping("borrow/{bookId}")
-	public @ResponseBody Book borrowBook(@PathVariable Long bookId) {
-		
+	public @ResponseBody Book borrowBook(@RequestHeader("Authorization") String jwtToken, 
+										 @PathVariable Long bookId) {
+
 		Book book = bookService.findAllAvailable()
 							.stream()
 							.filter(b -> b.getId() == bookId)
@@ -61,10 +73,10 @@ public class BookController {
 		if (book == null) {
 			throw new RuntimeException("The book with id '" + bookId + "' is not available");
 		}
-		
-		User user = new User();
-		user.setUsername("userA");
-		user.setId(1L);
+		jwtToken = jwtToken.substring(7);
+		String username = jwtUtil.getUsernameFromToken(jwtToken);
+		System.out.println("JwtToken:username=" + username);		
+		User user = userService.findByUsername(username);
 		
 		return bookService.borrowBook(book, user);
 	}
