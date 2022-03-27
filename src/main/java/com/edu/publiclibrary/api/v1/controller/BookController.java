@@ -18,11 +18,15 @@ import com.edu.publiclibrary.jwt.config.JwtUtil;
 import com.edu.publiclibrary.service.BookService;
 import com.edu.publiclibrary.service.UserService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 /**
  * @author	eduardomendes
  * @date	26 Mar 2022
  *
  */
+@Api("The Books Controller")
 @RequestMapping(BookController.API_BASE_URL)
 @RestController
 public class BookController {
@@ -44,23 +48,27 @@ public class BookController {
 		this.jwtUtil = jwtUtil;
 	}
 	
+	@ApiOperation("Returns the list of all books from the library")
 	@GetMapping
 	public @ResponseBody Set<Book> getAllBooks() {
 		
 		return bookService.findAll();
 	}
 	
+	@ApiOperation("Returns the list of all available books to borrow")
 	@GetMapping("available")
 	public @ResponseBody Set<Book> getAllAvailableBooks() {
 		return bookService.findAllAvailable();
 	}
 	
+	@ApiOperation("Returns the book with given bookId")
 	@GetMapping("{bookId}")
 	public @ResponseBody Book getBookById(@PathVariable Long bookId) {
 		
 		return bookService.findById(bookId);
 	}
 
+	@ApiOperation("Borrow book with bookId to the authenticated user. This service requires previous authentication. A valid bearer token must be placed in the header.")
 	@GetMapping("borrow/{bookId}")
 	public @ResponseBody Book borrowBook(@RequestHeader("Authorization") String jwtToken, 
 										 @PathVariable Long bookId) {

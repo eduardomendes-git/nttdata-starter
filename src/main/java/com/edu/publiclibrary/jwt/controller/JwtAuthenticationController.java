@@ -20,6 +20,9 @@ import com.edu.publiclibrary.jwt.model.JwtRequest;
 import com.edu.publiclibrary.jwt.model.JwtResponse;
 import com.edu.publiclibrary.jwt.service.JwtUserDetailsService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 /**
  * Class copied and modified from javainuse.com
  * 
@@ -27,6 +30,7 @@ import com.edu.publiclibrary.jwt.service.JwtUserDetailsService;
  * @date	26 Mar 2022
  *
  */
+@Api("The Authentication controller")
 @CrossOrigin
 @RestController
 public class JwtAuthenticationController {
@@ -43,6 +47,7 @@ public class JwtAuthenticationController {
 		this.userDetailsService = userDetailsService;
 	}
 
+	@ApiOperation("Create a JWT token for the authenticated user")
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
