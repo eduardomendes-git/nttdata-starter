@@ -11,6 +11,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.edu.publiclibrary.service.UserService;
+
 /**
  * Class copied and modified from javainuse.com
  * 
@@ -29,14 +31,30 @@ import org.springframework.stereotype.Service;
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
 
+	private final UserService userService;
+	
+	public JwtUserDetailsService(UserService userService) {
+		this.userService = userService;
+	}
+	
+	/**
+	 * Checks if the user with username indicated exists in the database. If it does,
+	 * encapsulate it and return.
+	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		if ("javainuse".equals(username)) {
-			return new User("javainuse", "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6",
-					new ArrayList<>());
+		
+		com.edu.publiclibrary.domain.User domainUser = userService.findByUsername(username);
+		
+		User user = null;
+		
+		if (domainUser != null) {
+			
+			user = new User(domainUser.getUsername(), domainUser.getPassword(), new ArrayList<>());
 		} else {
 			throw new UsernameNotFoundException("User not found with username: " + username);
 		}
+		return user;
 	}
 
 }

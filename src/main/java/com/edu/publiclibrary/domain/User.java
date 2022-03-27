@@ -26,6 +26,9 @@ public class User extends BaseEntity implements Serializable {
 	@Column(name = "username")
 	private String username;
 	
+	@Column(name = "password")
+	private String password;
+	
 	@OneToMany(mappedBy = "reader")
 	private Set<Book> books = new HashSet<Book>();
 	
@@ -34,6 +37,12 @@ public class User extends BaseEntity implements Serializable {
 	}
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public Set<Book> getBooks() {
 		return books;
