@@ -21,6 +21,8 @@ import com.edu.publiclibrary.jwt.model.JwtResponse;
 import com.edu.publiclibrary.jwt.service.JwtUserDetailsService;
 
 /**
+ * Class copied and modified from javainuse.com
+ * 
  * @author	eduardomendes
  * @date	26 Mar 2022
  *

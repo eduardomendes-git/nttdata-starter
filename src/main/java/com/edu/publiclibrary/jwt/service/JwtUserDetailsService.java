@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 /**
- * Class based on a copy from javainuse.com
+ * Class copied and modified from javainuse.com
  * 
  * JWTUserDetailsService implements the Spring Security UserDetailsService interface. 
  * It overrides the loadUserByUsername for fetching user details from the database 

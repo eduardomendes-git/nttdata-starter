@@ -6,6 +6,9 @@ package com.edu.publiclibrary.jwt.model;
 import java.io.Serializable;
 
 /**
+ * Class copied and modified from javainuse.com
+ * 
+ * 
  * @author	eduardomendes
  * @date	26 Mar 2022
  *
