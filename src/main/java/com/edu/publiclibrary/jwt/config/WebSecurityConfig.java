@@ -67,7 +67,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.authorizeRequests().antMatchers("/authenticate", 
 						 						 "/**/books",
 												 "/**/books/*",
-												 "/**/available").permitAll()
+												 "/**/available",
+												 "/v2/api-docs",
+												 "/configuration/ui",
+												 "/swagger-resources/**",
+												 "/configuration/security",
+												 "/swagger-ui.html",
+												 "/webjars/**").permitAll()
 				.anyRequest().authenticated().and()
 				.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
