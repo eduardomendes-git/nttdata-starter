@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.edu.publiclibrary.domain.Book;
 import com.edu.publiclibrary.domain.User;
-import com.edu.publiclibrary.jwt.config.JwtUtil;
 import com.edu.publiclibrary.service.BookService;
 import com.edu.publiclibrary.service.UserService;
 
@@ -36,16 +35,12 @@ public class BookController {
 	private final BookService bookService;
 	
 	private final UserService  userService;
-	
-	private final JwtUtil jwtUtil;
 
 	public BookController(BookService bookService, 
-						  UserService  userService,
-						  JwtUtil jwtUtil) {
+						  UserService  userService) {
 		super();
 		this.bookService = bookService;
 		this.userService = userService;
-		this.jwtUtil = jwtUtil;
 	}
 	
 	@ApiOperation("Returns the list of all books from the library")
@@ -81,10 +76,10 @@ public class BookController {
 		if (book == null) {
 			throw new RuntimeException("The book with id '" + bookId + "' is not available");
 		}
-		jwtToken = jwtToken.substring(7);
-		String username = jwtUtil.getUsernameFromToken(jwtToken);
-		System.out.println("JwtToken:username=" + username);		
-		User user = userService.findByUsername(username);
+		
+		// TODO Get username from the Principal
+		//User user = userService.findByUsername(username);
+		User user = new User();
 		
 		return bookService.borrowBook(book, user);
 	}
