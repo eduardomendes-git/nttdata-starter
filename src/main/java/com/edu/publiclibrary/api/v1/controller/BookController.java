@@ -3,11 +3,11 @@
  */
 package com.edu.publiclibrary.api.v1.controller;
 
+import java.security.Principal;
 import java.util.Set;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -65,8 +65,8 @@ public class BookController {
 
 	@ApiOperation("Borrow book with bookId to the authenticated user. This service requires previous authentication. A valid bearer token must be placed in the header.")
 	@GetMapping("borrow/{bookId}")
-	public @ResponseBody Book borrowBook(@RequestHeader("Authorization") String jwtToken, 
-										 @PathVariable Long bookId) {
+		public @ResponseBody Book borrowBook(@PathVariable Long bookId,
+											 Principal principal) {
 
 		Book book = bookService.findAllAvailable()
 							.stream()
